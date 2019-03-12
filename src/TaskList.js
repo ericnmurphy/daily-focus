@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import sanitizeHtml from 'sanitize-html'
 
 import Task from './Task'
 
@@ -25,7 +26,10 @@ const TaskList = () => {
 
   const updateTask = (e, index) => {
     const newTasks = [...tasks]
-    newTasks[index].text = e.target.value
+    newTasks[index].text = sanitizeHtml(e.target.value, {
+      allowedTags: [],
+      allowedAttributes: {},
+    })
     setTasks(newTasks)
   }
 

@@ -1,12 +1,14 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import ContentEditable from 'react-contenteditable'
 
 const TaskWrapper = styled.li`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 1rem;
 
   label {
+    display: inline-block;
     position: relative;
     cursor: pointer;
 
@@ -37,9 +39,6 @@ const TaskWrapper = styled.li`
       transition: 100ms opacity ease-in-out;
     }
   }
-
-  input[type='text'] {
-  }
 `
 
 const Checkbox = styled.input`
@@ -56,6 +55,7 @@ const Checkbox = styled.input`
   &:focus {
     & + label:before {
       border-color: #2196f3;
+      outline: 1px solid #2196f3;
     }
   }
 
@@ -72,11 +72,23 @@ const Checkbox = styled.input`
   }
 `
 
-const TextField = styled.input`
+const TextField = styled(ContentEditable)`
+  display: inline-block;
   flex: 1;
   border: 0;
   margin-left: 2.5rem;
   font-size: 1.5rem;
+  cursor: text;
+  min-height: 29px;
+  min-width: 300px;
+  max-width: 720px;
+  word-wrap: break-word;
+  text-align: left;
+  border-radius: 5px;
+
+  &:focus {
+    outline: 3px solid #2196f3;
+  }
 
   ${({ complete }) =>
     complete &&
@@ -95,14 +107,17 @@ const Task = ({ task, index, updateTask, completeTask }) => {
         defaultChecked={task.complete}
         onClick={() => completeTask(index)}
       />
-      <label htmlFor={index}>
-        <TextField
-          type="text"
-          onChange={e => updateTask(e, index)}
-          value={task.text}
-          complete={task.complete}
-        />
-      </label>
+      <label htmlFor={index} />
+      <TextField
+        html={task.text}
+        onChange={e => updateTask(e, index)}
+        tagName="span"
+        complete={task.complete}
+        maxLength="11"
+        onKeyDown={e => {
+          e.keyCode === 13 && e.preventDefault()
+        }}
+      />
     </TaskWrapper>
   )
 }
