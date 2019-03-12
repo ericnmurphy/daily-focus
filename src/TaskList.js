@@ -1,6 +1,20 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
 
 import Task from './Task'
+
+const TaskListWrapper = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+`
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([
@@ -22,7 +36,7 @@ const TaskList = () => {
   }
 
   return (
-    <main>
+    <TaskListWrapper>
       <ul>
         {tasks.map((task, index) => (
           <Task
@@ -34,7 +48,7 @@ const TaskList = () => {
           />
         ))}
       </ul>
-    </main>
+    </TaskListWrapper>
   )
 }
 
