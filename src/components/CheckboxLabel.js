@@ -14,7 +14,7 @@ const CheckboxLabel = styled.label`
     width: 21px;
     height: 21px;
     top: 3px;
-    border: 2px solid #222;
+    border: 2px solid #333;
     transition: 50ms background-color ease-in-out, 50ms border-color ease-in-out;
   }
 

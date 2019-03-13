@@ -10,22 +10,6 @@ const TaskWrapper = styled.li`
   margin-bottom: 1rem;
 `
 
-const getPlaceholder = index => {
-  switch (index) {
-    case 0:
-      return 'Your most important task for the day'
-
-    case 1:
-      return 'Your second most important task'
-
-    case 2:
-      return 'Your third most important task'
-
-    default:
-      return ''
-  }
-}
-
 const Task = ({ task, index, updateTask, completeTask }) => {
   return (
     <TaskWrapper>
@@ -38,7 +22,7 @@ const Task = ({ task, index, updateTask, completeTask }) => {
       <CheckboxLabel htmlFor={index} />
       <TextField
         html={task.text}
-        placeholder={getPlaceholder(index)}
+        placeholder={`Task ${index + 1}`}
         onChange={e => updateTask(e, index)}
         tagName="span"
         isComplete={task.complete}

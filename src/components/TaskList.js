@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import sanitizeHtml from 'sanitize-html'
 
-import StartList from './StartList'
+import Message from './Message'
 import Task from './Task'
 
 const TaskListWrapper = styled.main`
@@ -20,6 +20,7 @@ const TaskListWrapper = styled.main`
 
   ul {
     list-style: none;
+    padding: 0;
   }
 `
 
@@ -48,7 +49,7 @@ const TaskList = () => {
   return (
     <TaskListWrapper>
       <div>
-        <StartList />
+        <Message tasks={tasks} />
         <ul>
           {tasks.map((task, index) => (
             <Task

@@ -9,11 +9,12 @@ const TextField = styled(ContentEditable)`
   font-size: 1.5rem;
   cursor: text;
   min-height: 29px;
-  min-width: 450px;
+  min-width: 350px;
   max-width: 720px;
   word-wrap: break-word;
   text-align: left;
   border-radius: 5px;
+  color: #333;
 
   &:focus {
     outline: 3px solid #2196f3;
