@@ -9,7 +9,7 @@ const TextField = styled(ContentEditable)`
   font-size: 1.5rem;
   cursor: text;
   min-height: 29px;
-  min-width: 300px;
+  min-width: 450px;
   max-width: 720px;
   word-wrap: break-word;
   text-align: left;
@@ -19,12 +19,18 @@ const TextField = styled(ContentEditable)`
     outline: 3px solid #2196f3;
   }
 
-  ${({ complete }) =>
-    complete &&
+  ${({ isComplete, html }) =>
+    isComplete &&
+    html &&
     css`
       text-decoration: line-through;
       color: #ccc;
     `}
+
+  &:empty:before {
+    content: attr(placeholder);
+    color: #ccc;
+  }
 `
 
 export default TextField

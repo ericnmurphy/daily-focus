@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import sanitizeHtml from 'sanitize-html'
 
+import StartList from './StartList'
 import Task from './Task'
 
 const TaskListWrapper = styled.main`
@@ -11,17 +12,22 @@ const TaskListWrapper = styled.main`
   width: 100vw;
   height: 100vh;
 
+  & > div {
+    background-color: #fff;
+    padding: 4rem 6rem;
+    border-radius: 5px;
+  }
+
   ul {
     list-style: none;
-    padding: 0;
   }
 `
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([
-    { text: 'Task 1', complete: true },
-    { text: 'Task 2', complete: false },
-    { text: 'Task 3', complete: false },
+    { text: '', complete: false },
+    { text: '', complete: false },
+    { text: '', complete: false },
   ])
 
   const updateTask = (e, index) => {
@@ -41,17 +47,20 @@ const TaskList = () => {
 
   return (
     <TaskListWrapper>
-      <ul>
-        {tasks.map((task, index) => (
-          <Task
-            key={index}
-            index={index}
-            task={task}
-            updateTask={updateTask}
-            completeTask={completeTask}
-          />
-        ))}
-      </ul>
+      <div>
+        <StartList />
+        <ul>
+          {tasks.map((task, index) => (
+            <Task
+              key={index}
+              index={index}
+              task={task}
+              updateTask={updateTask}
+              completeTask={completeTask}
+            />
+          ))}
+        </ul>
+      </div>
     </TaskListWrapper>
   )
 }
