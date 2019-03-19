@@ -15,7 +15,7 @@ const getMessage = tasks => {
         <p>
           You've finished with your most important tasks
           <br />
-          for today.
+          for today. Take a rest!
         </p>
       </>
     )

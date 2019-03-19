@@ -1,9 +1,11 @@
+/*global chrome*/
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import sanitizeHtml from 'sanitize-html'
 
 import Message from './Message'
 import Task from './Task'
+import { spawn } from 'child_process'
 
 const TaskListWrapper = styled.main`
   display: flex;
@@ -25,11 +27,17 @@ const TaskListWrapper = styled.main`
 `
 
 const TaskList = () => {
-  const [tasks, setTasks] = useState([
-    { text: '', complete: false },
-    { text: '', complete: false },
-    { text: '', complete: false },
-  ])
+  const [tasks, setTasks] = useState([])
+
+  chrome.storage.local.get(['tasks'], function(results) {
+    setTasks(
+      results.tasks || [
+        { text: '', complete: false },
+        { text: '', complete: false },
+        { text: '', complete: false },
+      ]
+    )
+  })
 
   const updateTask = (e, index) => {
     const newTasks = [...tasks]
@@ -37,31 +45,41 @@ const TaskList = () => {
       allowedTags: [],
       allowedAttributes: {},
     })
+
+    // Save to Chrome local storage
+    chrome.storage.local.set({ tasks: newTasks })
+
     setTasks(newTasks)
   }
 
   const completeTask = index => {
     const newTasks = [...tasks]
     newTasks[index].complete = !newTasks[index].complete
+
+    // Save to Chrome local storage
+    chrome.storage.local.set({ tasks: newTasks })
+
     setTasks(newTasks)
   }
 
   return (
     <TaskListWrapper>
-      <div>
-        <Message tasks={tasks} />
-        <ul>
-          {tasks.map((task, index) => (
-            <Task
-              key={index}
-              index={index}
-              task={task}
-              updateTask={updateTask}
-              completeTask={completeTask}
-            />
-          ))}
-        </ul>
-      </div>
+      {tasks[0] && (
+        <div>
+          <Message tasks={tasks} />
+          <ul>
+            {tasks.map((task, index) => (
+              <Task
+                key={index}
+                index={index}
+                task={task}
+                updateTask={updateTask}
+                completeTask={completeTask}
+              />
+            ))}
+          </ul>
+        </div>
+      )}
     </TaskListWrapper>
   )
 }
