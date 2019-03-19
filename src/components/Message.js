@@ -5,9 +5,27 @@ const MessageWrapper = styled.header`
   color: #333;
   text-align: left;
   padding-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+
+  button {
+    color: #fff;
+    background-color: #07cc60;
+    border: 1px solid #07cc60;
+    padding: 0.375rem 0.75rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: 100ms opacity ease-in-out;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
 `
 
-const getMessage = tasks => {
+const getMessage = (tasks, clearTasks) => {
   if (tasks.filter(task => task.complete).length === 3) {
     return (
       <>
@@ -17,6 +35,7 @@ const getMessage = tasks => {
           <br />
           for today. Take a rest!
         </p>
+        <button onClick={clearTasks}>Start fresh 🧹</button>
       </>
     )
   } else if (tasks.filter(task => task.text).length === 0) {
@@ -40,8 +59,8 @@ const getMessage = tasks => {
   }
 }
 
-const Message = ({ tasks }) => {
-  return <MessageWrapper>{getMessage(tasks)}</MessageWrapper>
+const Message = ({ tasks, clearTasks }) => {
+  return <MessageWrapper>{getMessage(tasks, clearTasks)}</MessageWrapper>
 }
 
 export default Message

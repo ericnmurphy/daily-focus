@@ -16,16 +16,16 @@ const Task = ({ task, index, updateTask, completeTask }) => {
       <Checkbox
         type="checkbox"
         id={index}
-        defaultChecked={task.complete}
-        onClick={() => completeTask(index)}
+        checked={task.complete}
+        onChange={() => completeTask(index)}
       />
       <CheckboxLabel htmlFor={index} />
       <TextField
         html={task.text}
         placeholder={`Task ${index + 1}`}
-        onChange={e => updateTask(e, index)}
         tagName="span"
         isComplete={task.complete}
+        onChange={e => updateTask(e, index)}
         onKeyDown={e => {
           e.keyCode === 13 && e.preventDefault()
         }}

@@ -5,7 +5,6 @@ import sanitizeHtml from 'sanitize-html'
 
 import Message from './Message'
 import Task from './Task'
-import { spawn } from 'child_process'
 
 const TaskListWrapper = styled.main`
   display: flex;
@@ -27,16 +26,16 @@ const TaskListWrapper = styled.main`
 `
 
 const TaskList = () => {
+  const initialTasks = [
+    { text: '', complete: false },
+    { text: '', complete: false },
+    { text: '', complete: false },
+  ]
+
   const [tasks, setTasks] = useState([])
 
   chrome.storage.local.get(['tasks'], function(results) {
-    setTasks(
-      results.tasks || [
-        { text: '', complete: false },
-        { text: '', complete: false },
-        { text: '', complete: false },
-      ]
-    )
+    setTasks(results.tasks || initialTasks)
   })
 
   const updateTask = (e, index) => {
@@ -62,11 +61,16 @@ const TaskList = () => {
     setTasks(newTasks)
   }
 
+  const clearTasks = () => {
+    chrome.storage.local.set({ tasks: initialTasks })
+    setTasks(initialTasks)
+  }
+
   return (
     <TaskListWrapper>
       {tasks[0] && (
         <div>
-          <Message tasks={tasks} />
+          <Message tasks={tasks} clearTasks={clearTasks} />
           <ul>
             {tasks.map((task, index) => (
               <Task
