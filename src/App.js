@@ -1,13 +1,17 @@
 import React from 'react'
-import './App.css'
+import styled from 'styled-components'
 
 import TaskList from './components/TaskList'
 
+const AppWrapper = styled.div`
+  background-color: #fafafa;
+`
+
 const App = () => {
   return (
-    <div className="App">
+    <AppWrapper>
       <TaskList />
-    </div>
+    </AppWrapper>
   )
 }
 

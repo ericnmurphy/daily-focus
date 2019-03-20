@@ -1,36 +1,36 @@
 import styled, { css } from 'styled-components'
-import ContentEditable from 'react-contenteditable'
+import AutosizeInput from 'react-input-autosize'
 
-const TextField = styled(ContentEditable)`
+const TextField = styled(AutosizeInput)`
   display: inline-block;
   flex: 1;
-  border: 0;
-  margin-left: 2.5rem;
-  font-size: 1.5rem;
-  cursor: text;
-  min-height: 29px;
-  min-width: 350px;
-  max-width: 720px;
-  word-wrap: break-word;
   text-align: left;
-  border-radius: 5px;
-  color: #333;
 
-  &:focus {
-    outline: 3px solid #2196f3;
-  }
+  input {
+    color: #333;
+    border: 0;
+    min-height: 29px;
+    word-wrap: break-word;
+    font-size: 1.5rem;
+    min-width: 350px;
+    max-width: 720px;
+    margin-left: 2.5rem;
 
-  ${({ isComplete, html }) =>
-    isComplete &&
-    html &&
-    css`
-      text-decoration: line-through;
+    ${({ isComplete, value }) =>
+      isComplete &&
+      value &&
+      css`
+        text-decoration: line-through;
+        color: #ccc;
+      `}
+
+    &:focus {
+      outline: 3px solid #2196f3;
+    }
+
+    &::placeholder {
       color: #ccc;
-    `}
-
-  &:empty:before {
-    content: attr(placeholder);
-    color: #ccc;
+    }
   }
 `
 

@@ -21,14 +21,10 @@ const Task = ({ task, index, updateTask, completeTask }) => {
       />
       <CheckboxLabel htmlFor={index} />
       <TextField
-        html={task.text}
         placeholder={`Task ${index + 1}`}
-        tagName="span"
+        value={task.text}
         isComplete={task.complete}
         onChange={e => updateTask(e, index)}
-        onKeyDown={e => {
-          e.keyCode === 13 && e.preventDefault()
-        }}
       />
     </TaskWrapper>
   )

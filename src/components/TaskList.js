@@ -1,7 +1,6 @@
 /*global chrome*/
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import sanitizeHtml from 'sanitize-html'
 
 import Message from './Message'
 import Task from './Task'
@@ -40,10 +39,7 @@ const TaskList = () => {
 
   const updateTask = (e, index) => {
     const newTasks = [...tasks]
-    newTasks[index].text = sanitizeHtml(e.target.value, {
-      allowedTags: [],
-      allowedAttributes: {},
-    })
+    newTasks[index].text = e.target.value
 
     // Save to Chrome local storage
     chrome.storage.local.set({ tasks: newTasks })
