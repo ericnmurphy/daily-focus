@@ -1,5 +1,7 @@
 :root {
   --background-color: #fafafa;
+  --inner-background-color: #fff;
+  --primary-color: #2196f3;
 }
 
 body {
@@ -16,7 +18,7 @@ main {
 }
 
 .tasks-wrapper {
-  background-color: #fff;
+  background-color: var(--inner-background-color);
   padding: 4rem 6rem;
   border-radius: 5px;
 }
@@ -47,17 +49,17 @@ main {
 }
 
 .task-checkbox:focus + label:before {
-  border-color: #2196f3;
-  outline: 1px solid #2196f3;
+  border-color: var(--primary-color);
+  outline: 1px solid var(--primary-color);
 }
 
 .task-checkbox:checked + label:before {
-  background-color: #2196f3;
-  border-color: #2196f3;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .task-checkbox:checked + label:after {
-  color: #fff;
+  color: var(--inner-background-color);
   opacity: 1;
 }
 
@@ -91,7 +93,7 @@ main {
   left: 4px;
   top: 9px;
   transform: rotate(-45deg);
-  color: #fff;
+  color: var(--inner-background-color);
   transition: 50ms opacity ease-in-out;
 }
 
@@ -112,7 +114,7 @@ main {
 }
 
 .task-text > input:focus {
-  outline: 3px solid #2196f3;
+  outline: 3px solid var(--primary-color);
 }
 
 .task-text > input::placeholder {
