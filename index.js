@@ -1,11 +1,20 @@
+const inputs = document.querySelectorAll('input')
+
 // Make inputs auto-size
 document.querySelectorAll('.task-text').forEach(task => {
   autosizeInput(task)
 })
 
+const clearTasks = () => {
+  inputs.forEach(input =>
+    input.type === 'checkbox' ? (input.checked = false) : (input.value = '')
+  )
+
+  document.querySelector('.message').innerHTML = getMessage(0)
+}
+
 // Get greeting message
 const getMessage = complete => {
-  console.log(complete)
   switch (complete) {
     case 0:
       const date = new Date()
@@ -25,8 +34,8 @@ const getMessage = complete => {
     case 6:
       return `
     <h1>Finished for today! 🏁</h1>
-    <p>You've finished with your most important tasks for today. Take a rest!</p>
-    <button>Start fresh 🧹</button>
+    <p>You've finished with your most important tasks<br>for today. Take a rest!</p>
+    <button class="button" onClick="clearTasks()">Start fresh 🧹</button>
     `
     default:
       return ''
@@ -34,12 +43,9 @@ const getMessage = complete => {
 }
 
 // Check how many tasks have been completed to update the message
-const inputs = document.querySelectorAll('input')
 inputs.forEach(input => {
   input.addEventListener('input', () => {
-    const tasksCompleted = Array.from(
-      document.querySelectorAll('input')
-    ).filter(input => {
+    const tasksCompleted = Array.from(inputs).filter(input => {
       return input.type === 'checkbox' ? input.checked : input.value
     }).length
 
@@ -51,7 +57,7 @@ const saveValues = () => {
   const values = []
 
   // Save all values as an array
-  document.querySelectorAll('input').forEach(input => {
+  inputs.forEach(input => {
     values.push(input.type === 'checkbox' ? input.checked : input.value)
   })
 
@@ -69,7 +75,7 @@ const loadValues = () => {
   )
 
   // Set all persisted tasks to inputs
-  document.querySelectorAll('input').forEach((input, index) => {
+  inputs.forEach((input, index) => {
     input.type === 'checkbox'
       ? (input.checked = persistedTasks[index])
       : (input.value = persistedTasks[index])
