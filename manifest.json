@@ -1,8 +1,8 @@
 {
-  "name": "Daily Focus",
-  "description": "Replaces the new tab page to keep you on track with your daily tasks.",
-  "version": "1.0",
   "manifest_version": 2,
+  "name": "Daily Focus",
+  "version": "1.0",
+  "description": "Replaces the new tab page to keep you on track with your daily tasks.",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },

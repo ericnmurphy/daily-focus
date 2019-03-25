@@ -53,36 +53,52 @@ inputs.forEach(input => {
   })
 })
 
-const saveValues = () => {
-  const values = []
+const saveTasks = () => {
+  const tasks = []
 
-  // Save all values as an array
+  // Save all tasks as an array
   inputs.forEach(input => {
-    values.push(input.type === 'checkbox' ? input.checked : input.value)
+    tasks.push(input.type === 'checkbox' ? input.checked : input.value)
   })
 
   // Set stringified tasks array to localstorage
-  window.localStorage.tasks = JSON.stringify(values)
+  browser.storage.local.set({ tasks }).then(
+    () => {
+      console.log('saved')
+    },
+    error => console.log(error)
+  )
 }
 
-const loadValues = () => {
+const loadTasks = () => {
   // Convert localStorage string into array
-  const persistedTasks = JSON.parse(window.localStorage.tasks)
+  browser.storage.local.get().then(
+    ({ tasks }) => {
+      // Check to make sure there are tasks and it isn't undefined
+      if (tasks) {
+        // Set greeting message
+        document.querySelector('.message').innerHTML = getMessage(
+          tasks.filter(task => task).length
+        )
 
-  // Set greeting message
-  document.querySelector('.message').innerHTML = getMessage(
-    persistedTasks.filter(task => task).length
+        // Set all persisted tasks to inputs
+        inputs.forEach((input, index) => {
+          input.type === 'checkbox'
+            ? (input.checked = tasks[index])
+            : (input.value = tasks[index])
+        })
+      } else {
+        document.querySelector('.message').innerHTML = getMessage(0)
+      }
+    },
+    error => {
+      console.log(error)
+    }
   )
-
-  // Set all persisted tasks to inputs
-  inputs.forEach((input, index) => {
-    input.type === 'checkbox'
-      ? (input.checked = persistedTasks[index])
-      : (input.value = persistedTasks[index])
-  })
 }
 
 // Load values on page load
-loadValues()
 // Save values on refresh or window close
-window.onbeforeunload = saveValues
+window.onbeforeunload = saveTasks
+// window.addEventListener('load', saveTasks())
+window.addEventListener('load', loadTasks())
