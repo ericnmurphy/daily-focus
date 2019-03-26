@@ -1,3 +1,4 @@
+// Define all our input elements
 const inputs = document.querySelectorAll('input')
 
 // Make inputs auto-size
@@ -10,7 +11,7 @@ const clearTasks = () => {
     input.type === 'checkbox' ? (input.checked = false) : (input.value = '')
   )
 
-  document.querySelector('.message').innerHTML = getMessage(0)
+  getMessage(0)
 }
 
 // Get greeting message
@@ -27,18 +28,24 @@ const getMessage = complete => {
         heading = "Let's go! 💪"
       }
 
-      return `
+      document.querySelector('.message').innerHTML = `
       <h1>${heading}</h1>
       <p>What are your most important tasks for today?</p>
       `
+      return
     case 6:
-      return `
-    <h1>Finished for today! 🏁</h1>
-    <p>You've finished with your most important tasks<br>for today. Take a rest!</p>
-    <button class="button" onClick="clearTasks()">Start fresh 🧹</button>
-    `
+      document.querySelector('.message').innerHTML = `
+      <h1>Finished for today! 🏁</h1>
+      <p>You've finished with your most important tasks<br>for today. Take a rest!</p>
+      <button class="reset-button">Start fresh 🧹</button>
+      `
+      document
+        .querySelector('.reset-button')
+        .addEventListener('click', clearTasks)
+      return
     default:
-      return ''
+      document.querySelector('.message').innerHTML = ''
+      return
   }
 }
 
@@ -49,10 +56,11 @@ inputs.forEach(input => {
       return input.type === 'checkbox' ? input.checked : input.value
     }).length
 
-    document.querySelector('.message').innerHTML = getMessage(tasksCompleted)
+    getMessage(tasksCompleted)
   })
 })
 
+// Save and load items in localstorage
 const saveTasks = () => {
   const tasks = []
 
@@ -77,9 +85,7 @@ const loadTasks = () => {
       // Check to make sure there are tasks and it isn't undefined
       if (tasks) {
         // Set greeting message
-        document.querySelector('.message').innerHTML = getMessage(
-          tasks.filter(task => task).length
-        )
+        getMessage(tasks.filter(task => task).length)
 
         // Set all persisted tasks to inputs
         inputs.forEach((input, index) => {
@@ -88,7 +94,7 @@ const loadTasks = () => {
             : (input.value = tasks[index])
         })
       } else {
-        document.querySelector('.message').innerHTML = getMessage(0)
+        getMessage(0)
       }
     },
     error => {
@@ -98,7 +104,6 @@ const loadTasks = () => {
 }
 
 // Load values on page load
-// Save values on refresh or window close
 window.onbeforeunload = saveTasks
-// window.addEventListener('load', saveTasks())
+// Save values on refresh or window close
 window.addEventListener('load', loadTasks())
