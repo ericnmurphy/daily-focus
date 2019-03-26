@@ -70,12 +70,7 @@ const saveTasks = () => {
   })
 
   // Set stringified tasks array to localstorage
-  browser.storage.local.set({ tasks }).then(
-    () => {
-      console.log('saved')
-    },
-    error => console.log(error)
-  )
+  browser.storage.local.set({ tasks })
 }
 
 const loadTasks = () => {
@@ -103,7 +98,10 @@ const loadTasks = () => {
   )
 }
 
-// Load values on page load
+// Save values on refresh, tab change, or window close
 window.onbeforeunload = saveTasks
-// Save values on refresh or window close
-window.addEventListener('load', loadTasks())
+window.addEventListener('focus', saveTasks)
+window.addEventListener('blur', saveTasks)
+document.addEventListener('visibilitychange', saveTasks)
+// Load values on page load
+window.addEventListener('load', loadTasks)
