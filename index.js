@@ -75,7 +75,12 @@ const saveTasks = () => {
 
 const loadTasks = () => {
   // Convert localStorage string into array
-  chrome.storage.local.get(null, ({ tasks }) => {
+  chrome.storage.local.get(null, ({ tasks, theme }) => {
+    // Load dark mode option
+    if (theme === 'light') {
+      document.querySelector('html').setAttribute('data-theme', 'light')
+    }
+
     // Check to make sure there are tasks and it isn't undefined
     if (tasks) {
       // Set greeting message
@@ -93,13 +98,15 @@ const loadTasks = () => {
   })
 }
 
-// Night mode toggle
+// Dark mode toggle
 document.querySelector('.dark-mode').addEventListener('click', () => {
   const root = document.querySelector('html')
-  const theme = root.getAttribute('data-theme')
-  theme === 'dark'
-    ? root.setAttribute('data-theme', 'light')
-    : root.setAttribute('data-theme', 'dark')
+  const oldTheme = root.getAttribute('data-theme')
+  const theme = oldTheme === 'dark' ? 'light' : 'dark'
+  root.setAttribute('data-theme', theme)
+
+  // Save to localstorage
+  chrome.storage.local.set({ theme })
 })
 
 // Save values on refresh, tab change, or window close
@@ -108,4 +115,5 @@ window.addEventListener('focus', saveTasks)
 window.addEventListener('blur', saveTasks)
 document.addEventListener('visibilitychange', saveTasks)
 // Load values on page load
+window.addEventListener('load', loadTasks)
 window.addEventListener('load', loadTasks)
