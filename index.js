@@ -70,12 +70,12 @@ const saveTasks = () => {
   })
 
   // Set stringified tasks array to localstorage
-  chrome.storage.sync.set({ tasks })
+  chrome.storage.local.set({ tasks })
 }
 
 const loadTasks = () => {
   // Convert localStorage string into array
-  chrome.storage.sync.get(null, ({ tasks }) => {
+  chrome.storage.local.get(null, ({ tasks }) => {
     // Check to make sure there are tasks and it isn't undefined
     if (tasks) {
       // Set greeting message
@@ -92,6 +92,15 @@ const loadTasks = () => {
     }
   })
 }
+
+// Night mode toggle
+document.querySelector('.dark-mode').addEventListener('click', () => {
+  const root = document.querySelector('html')
+  const theme = root.getAttribute('data-theme')
+  theme === 'dark'
+    ? root.setAttribute('data-theme', 'light')
+    : root.setAttribute('data-theme', 'dark')
+})
 
 // Save values on refresh, tab change, or window close
 window.onbeforeunload = saveTasks

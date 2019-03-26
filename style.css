@@ -1,4 +1,14 @@
-:root {
+html {
+  --background-color: #081b33;
+  --inner-background-color: #152642;
+  --primary-color: #1e80cf;
+  --secondary-color: #09ab59;
+  --text-color: #fff;
+  --complete-text-color: #506680;
+  --dark-text-color: #fff;
+}
+
+html[data-theme='dark'] {
   --background-color: #fafafa;
   --inner-background-color: #fff;
   --primary-color: #2196f3;
@@ -119,7 +129,7 @@ main {
   display: inline-block;
   flex: 1;
   text-align: left;
-  background-color: var(--background-color);
+  background-color: var(--inner-background-color);
   color: var(--text-color);
   border: 0;
   min-height: 29px;
@@ -160,4 +170,17 @@ main {
 
 .button:hover {
   opacity: 0.9;
+}
+
+/* Dark mode button */
+
+.dark-mode {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  padding: 1rem;
+  cursor: pointer;
 }
