@@ -70,32 +70,27 @@ const saveTasks = () => {
   })
 
   // Set stringified tasks array to localstorage
-  browser.storage.local.set({ tasks })
+  chrome.storage.sync.set({ tasks })
 }
 
 const loadTasks = () => {
   // Convert localStorage string into array
-  browser.storage.local.get().then(
-    ({ tasks }) => {
-      // Check to make sure there are tasks and it isn't undefined
-      if (tasks) {
-        // Set greeting message
-        getMessage(tasks.filter(task => task).length)
+  chrome.storage.sync.get(null, ({ tasks }) => {
+    // Check to make sure there are tasks and it isn't undefined
+    if (tasks) {
+      // Set greeting message
+      getMessage(tasks.filter(task => task).length)
 
-        // Set all persisted tasks to inputs
-        inputs.forEach((input, index) => {
-          input.type === 'checkbox'
-            ? (input.checked = tasks[index])
-            : (input.value = tasks[index])
-        })
-      } else {
-        getMessage(0)
-      }
-    },
-    error => {
-      console.log(error)
+      // Set all persisted tasks to inputs
+      inputs.forEach((input, index) => {
+        input.type === 'checkbox'
+          ? (input.checked = tasks[index])
+          : (input.value = tasks[index])
+      })
+    } else {
+      getMessage(0)
     }
-  )
+  })
 }
 
 // Save values on refresh, tab change, or window close
