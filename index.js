@@ -109,6 +109,15 @@ document.querySelector('.dark-mode').addEventListener('click', () => {
   chrome.storage.local.set({ theme })
 })
 
+// Settings
+const settings = document.querySelector('.settings')
+settings.addEventListener('mouseover', () => {
+  settings.style.opacity = 1
+})
+settings.addEventListener('mouseout', () => {
+  settings.style.opacity = 0
+})
+
 // Save values on refresh, tab change, or window close
 window.onbeforeunload = saveTasks
 window.addEventListener('focus', saveTasks)

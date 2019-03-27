@@ -140,6 +140,27 @@ main {
   margin-left: 2.5rem;
 }
 
+@media screen and (max-width: 750px) {
+  .task-text {
+    min-width: 480px;
+    max-width: 480px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .task-text {
+    min-width: 300px;
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .task-text {
+    min-width: 260px;
+    max-width: 260px;
+  }
+}
+
 .task-checkbox:checked ~ .task-text {
   text-decoration: line-through;
   color: var(--complete-text-color);
@@ -173,6 +194,18 @@ main {
   font-size: 1rem;
   line-height: 1.5;
   cursor: pointer;
+  transition: 100ms opacity ease-in-out;
+}
+
+/* Settings */
+
+.settings {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 25%;
+  height: 150px;
+  opacity: 0;
   transition: 100ms opacity ease-in-out;
 }
 
