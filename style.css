@@ -154,7 +154,15 @@ main {
   color: var(--complete-text-color);
 }
 
-/* Button */
+/* Buttons */
+
+.button {
+  transition: opacity 100ms;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
 
 .reset-button {
   color: var(--dark-text-color);
@@ -168,19 +176,20 @@ main {
   transition: 100ms opacity ease-in-out;
 }
 
-.button:hover {
-  opacity: 0.9;
-}
-
-/* Dark mode button */
-
-.dark-mode {
+.setting {
   position: absolute;
   bottom: 0;
-  left: 0;
   background: none;
   border: none;
-  font-size: 2rem;
-  padding: 1rem;
+  font-size: 1.5rem;
+  padding: 1rem 1.25rem;
   cursor: pointer;
+}
+
+.dark-mode {
+  left: 0;
+}
+
+.heart {
+  left: 2.75rem;
 }

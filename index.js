@@ -1,11 +1,6 @@
 // Define all our input elements
 const inputs = document.querySelectorAll('input')
 
-// Make inputs auto-size
-document.querySelectorAll('.task-text').forEach(task => {
-  autosizeInput(task)
-})
-
 const clearTasks = () => {
   inputs.forEach(input =>
     input.type === 'checkbox' ? (input.checked = false) : (input.value = '')
@@ -37,7 +32,7 @@ const getMessage = complete => {
       document.querySelector('.message').innerHTML = `
       <h1>Finished for today! 🏁</h1>
       <p>You've finished with your most important tasks<br>for today. Take a rest!</p>
-      <button class="reset-button">Start fresh 🧹</button>
+      <p><button class="button reset-button">Start fresh 🧹</button></p>
       `
       document
         .querySelector('.reset-button')
@@ -95,6 +90,11 @@ const loadTasks = () => {
     } else {
       getMessage(0)
     }
+
+    // Make inputs autosize
+    document.querySelectorAll('.task-text').forEach(task => {
+      autosizeInput(task)
+    })
   })
 }
 

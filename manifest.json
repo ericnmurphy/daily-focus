@@ -1,8 +1,11 @@
 {
   "manifest_version": 2,
-  "name": "Daily Focus",
+  "name": "Daily Tasks",
   "version": "1.0",
-  "description": "Replaces the new tab page to keep you on track with your daily tasks.",
+  "description": "Replaces the new tab page with a task list keep you on track with your three most important daily tasks.",
+  "icons": {
+    "48": "icon-48.png"
+  },
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
